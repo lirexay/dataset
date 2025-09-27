@@ -37,7 +37,7 @@ async def login(
         "access_token": access_token,
         "token_type": "bearer",
         "refresh_token": refresh_token,
-        "role_id": user.user_type_id,
+        "role_id": user.user_role_id,
     }
 
 
@@ -87,7 +87,7 @@ async def read_users_me(
     )
 
 
-@router.post("/chane-pass/")
+@router.post("/change-pass/")
 def change_pass(current_user: Annotated[schemas.UserInfoResponse, Depends(get_current_user)], password: schemas.UserChangePassword, db: Session = Depends(get_db),):
     user = db.query(User).filter(User.phone == current_user.phone).first()
     user.password = password.password
@@ -95,7 +95,7 @@ def change_pass(current_user: Annotated[schemas.UserInfoResponse, Depends(get_cu
     db.refresh(user)
 
 
-@router.post("/signup/")
+@router.post("/singup/")
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(
         User.username == user.username).first()
