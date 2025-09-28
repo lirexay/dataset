@@ -112,7 +112,7 @@ def change_pass(phone:str, db: Session = Depends(get_db),):
         raise HTTPException(status_code=400, detail="Phone not registered")
     return {"token":"1234"}
 
-@router.post("/signup/")
+@router.post("/singup/")
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(
         User.username == user.username).first()
