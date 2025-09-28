@@ -17,7 +17,7 @@ import time
 
 
 # SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:@db:3306/dataset"
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:password@127.0.0.1:3307/dataset"
+SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:password@127.0.0.1:3308/dataset"
 # SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:G|yte11H_9&@127.0.0.1:3306/kasra"
 
 time.sleep(15)
