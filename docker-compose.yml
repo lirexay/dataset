@@ -8,7 +8,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: dataset
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - db_data:/var/lib/mysql
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "8000:8000"
     # command: uvicorn main:app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
     # command: uvicorn main:app
 
 volumes:
