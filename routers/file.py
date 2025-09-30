@@ -21,7 +21,7 @@ async def upload_file(
     db: Session = Depends(get_db),
 ):
     user_id = current_user.id
-    access_id = current_user.user_type_id
+    access_id = current_user.user_role_id
     file_extension = os.path.splitext(file.filename)[1][1:]
     file_extension_allowed(file_extension)
 
@@ -41,7 +41,7 @@ async def download_file(file_id: int, db: Session = Depends(get_db)):
     db_file = db.query(File).filter(File.id == file_id).first()
     db_file_exist(db_file)
     upload_dir = os.path.abspath("uploads")
-    safe_file_name = Path(db_file.info).name
+    safe_file_name = Path(db_file.name).name
     file_path = os.path.join(upload_dir, safe_file_name)
 
     if not os.path.exists(file_path):

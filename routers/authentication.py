@@ -64,7 +64,7 @@ async def refresh_token(
         "access_token": access_token,
         "token_type": "bearer",
         "refresh_token": new_refresh_token,
-        "role_id": user.user_type_id,
+        "role_id": user.user_role_id,
     }
 
 
@@ -86,31 +86,34 @@ async def read_users_me(
         phone=user.phone,
     )
 
+
 @router.post("/chane-pass/")
-def change_pass(current_user: Annotated[schemas.UserInfoResponse, Depends(get_current_user)]
-                , password: schemas.UserChangePassword, db: Session = Depends(get_db),):
+def change_pass(current_user: Annotated[schemas.UserInfoResponse, Depends(get_current_user)], password: schemas.UserChangePassword, db: Session = Depends(get_db),):
     user = db.query(User).filter(User.phone == current_user.phone).first()
     user.password = hash(password.password)
     db.commit()
     db.refresh(user)
 
+
 @router.post("/forgot-pass/")
-def change_pass(password: str,phone:str,token:str="1234", db: Session = Depends(get_db),):
+def change_pass(password: str, phone: str, token: str = "1234", db: Session = Depends(get_db),):
     user = db.query(User).filter(User.phone == phone).first()
-    
+
     if not user:
         raise HTTPException(status_code=400, detail="Phone not registered")
     user.password = hash(password)
     db.commit()
     db.refresh(user)
 
+
 @router.get("/forgot-pass/")
-def change_pass(phone:str, db: Session = Depends(get_db),):
+def change_pass(phone: str, db: Session = Depends(get_db),):
     user = db.query(User).filter(User.phone == phone).first()
-    
+
     if not user:
         raise HTTPException(status_code=400, detail="Phone not registered")
-    return {"token":"1234"}
+    return {"token": "1234"}
+
 
 @router.post("/singup/")
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):

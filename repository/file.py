@@ -10,7 +10,7 @@ def file_create_file(
     file_hash: str,
     access_id: int,
 ):
-    db_file = File(info=file_hash, access_id=access_id)
+    db_file = File(name=file_hash)
     db.add(db_file)
     db.commit()
     db.refresh(db_file)
