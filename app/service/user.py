@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from jose import JWTError, jwt
 from sqlalchemy.ext.asyncio import AsyncSession
-from config import settings
+from core.config import settings
 from entities.user import User
 from repo.user import UsersRepo
 from schema.user import UserCreate, UserUpdate

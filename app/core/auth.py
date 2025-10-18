@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta
-from typing import Annotated, Optional
+from typing import Annotated, AsyncGenerator, Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from api.deps import get_auth_service
+# from api import deps
 from db.session import get_db
 
 from core.config import settings
@@ -45,6 +45,12 @@ def create_access_token(claims: dict, expires_delta: Optional[timedelta] = None)
         claims_to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
     )
     return encoded_jwt
+
+
+async def get_auth_service(
+    db: AsyncSession = Depends(get_db),
+) -> AsyncGenerator[AuthService, None]:
+    yield AuthService(db)
 
 
 async def get_current_user(
