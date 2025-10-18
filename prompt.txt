@@ -1,0 +1,219 @@
+controler/item.py:
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi_pagination import Page, Params, paginate
+
+from api.deps import get_items_service
+from schema.response import StandardResponse, success
+
+from schema.item import ItemCreate, ItemOut, ItemUpdate
+from service.item import ItemsService
+
+router = APIRouter()
+
+
+@router.post(
+    "/", response_model=StandardResponse[ItemOut], status_code=status.HTTP_201_CREATED
+)
+async def create_item(
+    payload: ItemCreate, service: ItemsService = Depends(get_items_service)
+):
+    return success(await service.create_item(payload))
+
+
+@router.get("/", response_model=StandardResponse[Page[ItemOut]])
+async def list_items(
+    params: Params = Depends(), service: ItemsService = Depends(get_items_service)
+):
+    items = await service.list_items(params)
+    return success(items)
+
+
+@router.get("/{item_id}", response_model=StandardResponse[ItemOut])
+async def read_item(item_id: int, service: ItemsService = Depends(get_items_service)):
+    obj = await service.get_item(item_id)
+    if not obj:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return success(obj)
+
+
+@router.put("/{item_id}", response_model=StandardResponse[ItemOut])
+async def update_item(
+    item_id: int,
+    payload: ItemUpdate,
+    service: ItemsService = Depends(get_items_service),
+):
+    obj = await service.update_item(item_id, payload)
+    if not obj:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return success(obj)
+entities/item.py:
+from sqlalchemy import Column, Integer, String, Float, Boolean
+from db.base import Base
+
+
+class Item(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=False, index=True)
+    price = Column(Float, nullable=False)
+    is_offer = Column(Boolean, default=False)
+
+repo/item.py:
+from typing import Optional
+from fastapi_pagination import Page, Params
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+from fastapi_pagination.ext.sqlalchemy import paginate
+from schema.item import ItemCreate, ItemUpdate
+from entities.item import Item
+
+
+class ItemsRepo:
+    def __init__(self, db: AsyncSession):
+        self.db = db
+
+    async def get(self, item_id: int) -> Optional[Item]:
+        q = await self.db.execute(select(Item).where(Item.id == item_id))
+        return q.scalars().first()
+
+    async def list(self, params: Params) -> Page[Item]:
+        q = select(Item).order_by(Item.id)
+        return await paginate(self.db, q, params)
+
+    async def create(self, payload: ItemCreate) -> Item:
+        db_obj = Item(**payload.model_dump())
+        self.db.add(db_obj)
+        await self.db.commit()
+        await self.db.refresh(db_obj)
+        return db_obj
+
+    async def update(self, db_obj: Item, payload: ItemUpdate) -> Item:
+        for field, value in payload.model_dump(exclude_unset=True).items():
+            setattr(db_obj, field, value)
+        self.db.add(db_obj)
+        await self.db.commit()
+        await self.db.refresh(db_obj)
+        return db_obj
+
+    async def delete(self, db_obj: Item) -> None:
+        await self.db.delete(db_obj)
+        await self.db.commit()
+schema/item.py:
+from pydantic import BaseModel
+
+
+class ItemBase(BaseModel):
+    name: str
+    price: float
+    is_offer: bool
+
+
+class ItemCreate(ItemBase):
+    pass
+
+
+class ItemUpdate(ItemBase):
+    pass
+
+
+class ItemOut(ItemBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+service/item.py:
+from fastapi_pagination import Params
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from repo.item import ItemsRepo, ItemCreate, ItemUpdate
+
+
+class ItemsService:
+    def __init__(self, db: AsyncSession):
+        self.repo = ItemsRepo(db)
+
+    async def create_item(self, payload: ItemCreate):
+        return await self.repo.create(payload)
+
+    async def get_item(self, item_id: int):
+        return await self.repo.get(item_id)
+
+    async def list_items(self, params: Params):
+        return await self.repo.list(params)
+
+    async def update_item(self, item_id: int, payload: ItemUpdate):
+        db_obj = await self.repo.get(item_id)
+        if not db_obj:
+            return None
+        return await self.repo.update(db_obj, payload)
+
+
+underestood?
+now make this files for every one of these:
+
+
+class UserRole(Base):
+    __tablename__ = "user_roles"
+    id = Column(Integer, primary_key=True)
+    title = Column(String(999))
+
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    user_role_id = Column(Integer, ForeignKey("user_roles.id"))
+    fname = Column(String(999))
+    lname = Column(String(999))
+    username = Column(String(999))
+    password = Column(String(999))
+    phone = Column(String(999))
+    # active = Column(Boolean)
+
+
+class File(Base):
+    __tablename__ = "files"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(999))
+
+
+class Dataset(Base):
+    __tablename__ = "datasets"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(999))
+    description = Column(String(999))
+    file_id = Column(Integer, ForeignKey("files.id"))
+    # size_kb = Column(Integer)
+
+
+class State(Base):
+    __tablename__ = "states"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(999))
+
+
+class Request(Base):
+    __tablename__ = "requests"
+    id = Column(Integer, primary_key=True)
+    title = Column(String(999))
+    description = Column(String(999))
+    comment = Column(String(999))
+    state_id = Column(Integer, ForeignKey("states.id"))
+
+    user_requestor_id = Column(Integer, ForeignKey("users.id"))
+    state = relationship("State", foreign_keys=[state_id])
+
+    requestor = relationship("User", foreign_keys=[user_requestor_id])
+
+class SellRequest(Base):
+    __tablename__ = "sell_requests"
+    id = Column(Integer, primary_key=True)
+    title = Column(String(999))
+    description = Column(String(999))
+    comment = Column(String(999))
+    state_id = Column(Integer, ForeignKey("states.id"))
+
+    user_requestor_id = Column(Integer, ForeignKey("users.id"))
+    state = relationship("State", foreign_keys=[state_id])
+
+    requestor = relationship("User", foreign_keys=[user_requestor_id])
