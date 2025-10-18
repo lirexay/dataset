@@ -1,12 +1,15 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from repo.dataset import DatasetsRepo
-from schema.dataset import DatasetCreate, DatasetUpdate
+from schema.dataset import DatasetCreate, DatasetFilter, DatasetUpdate
 
 
 class DatasetsService:
     def __init__(self, db: AsyncSession):
         self.repo = DatasetsRepo(db)
+
+    async def filter_datasets(self, filters: DatasetFilter, params: Params):
+        return await self.repo.filter(filters, params)
 
     async def create_dataset(self, payload: DatasetCreate):
         return await self.repo.create(payload)

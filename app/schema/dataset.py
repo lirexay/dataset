@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -20,3 +21,9 @@ class DatasetOut(DatasetBase):
 
     class Config:
         from_attributes = True
+
+
+class DatasetFilter(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    file_id: Optional[int] = None
