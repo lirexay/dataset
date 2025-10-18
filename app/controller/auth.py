@@ -105,12 +105,18 @@ async def confirm_password_reset(
 )
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
                                  service: AuthService = Depends(get_auth_service),):
+
     user = await service.get_user(username=form_data.username,
-                                  password=form_data.password)
-    print("///////////////////////////")
-    print(user)
-    print("///////////////////////////")
+                                  password=get_password_hash(form_data.password))
+
     if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if not verify_password(user.password, form_data.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
