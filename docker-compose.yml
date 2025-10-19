@@ -1,26 +1,32 @@
-
 services:
   db:
-    image: mysql:8
+    image: postgres:15
     restart: always
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: dataset
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dataset
     ports:
-      - "3308:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data # Add volume for data persistence
+    healthcheck: # <-- NEW
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
 
-  api:
+  web:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:password@db:5432/dataset
+      SECRET_KEY: F6PoOg1LnGIPOvpiuwwITeFVPrjRBp7UldDkr1qQREI=
     ports:
-      - "8001:8001"
-    # command: uvicorn main:app
-    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
-    # command: uvicorn main:app
+      - "8000:8000" # Fixed port mapping
+# Optional: for development with hot reload
 
 volumes:
-  db_data:
-  
+  postgres_data:

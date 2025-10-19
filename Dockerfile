@@ -1,8 +1,20 @@
-FROM python:3.12
+FROM python:3.12-slim
 
 WORKDIR /app
+ENV PYTHONUNBUFFERED=1
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy dependency files first (for better caching)
+COPY pyproject.toml pdm.lock ./
 
-COPY . .
+# Install pdm and dependencies
+RUN pip install pdm
+RUN pdm install 
+
+# Copy application code
+COPY . /app
+
+# Expose the correct port
+
+
+# Run the application (remove --reload for production)
+CMD ["pdm", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
