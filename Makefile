@@ -7,12 +7,12 @@ create_db:
 	python3 $(CREATE_DB_SCRIPT)
 
 migrate:
-	alembic -c $(ALEMBIC_INI) upgrade head
+	pdm run alembic -c $(ALEMBIC_INI) upgrade head
 
 db: create_db migrate
 
 run:
-	uvicorn app.main:app --reload
+	pdm run uvicorn app.main:app --reload
 
 up:
 	docker-compose up --build
