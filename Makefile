@@ -22,3 +22,6 @@ tests:
 
 lint:
 	ruff check .
+	
+init:
+	pdm install
