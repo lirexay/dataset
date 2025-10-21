@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.sell_request import SellRequestCreate, SellRequestUpdate
-from entities.sell_request import SellRequest
+from app.schema.sell_request import SellRequestCreate, SellRequestUpdate
+from app.entities.sell_request import SellRequest
 
 
 class SellRequestsRepo:

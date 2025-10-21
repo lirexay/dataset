@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.sell_request import SellRequestsRepo
-from schema.sell_request import SellRequestCreate, SellRequestUpdate
+from app.repo.sell_request import SellRequestsRepo
+from app.schema.sell_request import SellRequestCreate, SellRequestUpdate
 
 
 class SellRequestsService:

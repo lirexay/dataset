@@ -1,13 +1,10 @@
-from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi_pagination import Page, Params
-from api.deps import get_files_service
-from core.auth import get_current_user
+from app.api.deps import get_files_service
+from app.core.auth import get_current_user
 
-from schema.auth import UserInfoResponse
-from schema.response import StandardResponse, success
-from schema.file import FileCreate, FileOut, FileUpdate
-from service.file import FilesService
+from app.schema.response import StandardResponse, success
+from app.schema.file import FileOut
+from app.service.file import FilesService
 import os
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 router = APIRouter()

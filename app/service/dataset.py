@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.dataset import DatasetsRepo
-from schema.dataset import DatasetCreate, DatasetFilter, DatasetUpdate
+from app.repo.dataset import DatasetsRepo
+from app.schema.dataset import DatasetCreate, DatasetFilter, DatasetUpdate
 
 
 class DatasetsService:

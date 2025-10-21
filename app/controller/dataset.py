@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi_pagination import Page, Params
-from api.deps import get_datasets_service
-from schema.response import StandardResponse, success
-from schema.dataset import DatasetCreate, DatasetFilter, DatasetOut, DatasetUpdate
-from service.dataset import DatasetsService
+from app.api.deps import get_datasets_service
+from app.schema.response import StandardResponse, success
+from app.schema.dataset import DatasetCreate, DatasetFilter, DatasetOut, DatasetUpdate
+from app.service.dataset import DatasetsService
 
 router = APIRouter()
 

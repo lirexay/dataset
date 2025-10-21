@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.file import FileCreate, FileUpdate
-from entities.file import File
+from app.schema.file import FileCreate, FileUpdate
+from app.entities.file import File
 
 
 class FilesRepo:

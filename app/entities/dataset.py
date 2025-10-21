@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from db.base import Base
+from app.db.base import Base
 
 
 class Dataset(Base):

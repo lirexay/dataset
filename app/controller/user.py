@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params
-from api.deps import get_users_service
-from schema.response import StandardResponse, success
-from schema.user import UserCreate, UserOut, UserUpdate
-from service.user import UsersService
+from app.api.deps import get_users_service
+from app.schema.response import StandardResponse, success
+from app.schema.user import UserCreate, UserOut, UserUpdate
+from app.service.user import UsersService
 
 router = APIRouter()
 

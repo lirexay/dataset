@@ -2,17 +2,17 @@ from typing import AsyncGenerator
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.session import get_db
+from app.db.session import get_db
 
-from service.auth import AuthService
-from service.user_role import UserRolesService
-from service.user import UsersService
-from service.file import FilesService
-from service.dataset import DatasetsService
-from service.state import StatesService
-from service.request import RequestsService
-from service.sell_request import SellRequestsService
-from service.item import ItemsService
+from app.service.auth import AuthService
+from app.service.user_role import UserRolesService
+from app.service.user import UsersService
+from app.service.file import FilesService
+from app.service.dataset import DatasetsService
+from app.service.state import StatesService
+from app.service.request import RequestsService
+from app.service.sell_request import SellRequestsService
+from app.service.item import ItemsService
 
 
 async def get_items_service(

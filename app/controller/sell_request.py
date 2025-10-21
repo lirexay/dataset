@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params
-from api.deps import get_sell_requests_service
-from schema.response import StandardResponse, success
-from schema.sell_request import SellRequestCreate, SellRequestOut, SellRequestUpdate
-from service.sell_request import SellRequestsService
+from app.api.deps import get_sell_requests_service
+from app.schema.response import StandardResponse, success
+from app.schema.sell_request import SellRequestCreate, SellRequestOut, SellRequestUpdate
+from app.service.sell_request import SellRequestsService
 
 router = APIRouter()
 

@@ -3,9 +3,9 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.dataset import DatasetCreate, DatasetUpdate
-from entities.dataset import Dataset
-from schema.dataset import DatasetFilter
+from app.schema.dataset import DatasetCreate, DatasetUpdate
+from app.entities.dataset import Dataset
+from app.schema.dataset import DatasetFilter
 
 
 class DatasetsRepo:

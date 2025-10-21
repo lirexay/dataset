@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params, paginate
-from api.deps import get_user_roles_service
-from schema.response import StandardResponse, success
-from schema.user_role import UserRoleCreate, UserRoleOut, UserRoleUpdate
-from service.user_role import UserRolesService
+from app.api.deps import get_user_roles_service
+from app.schema.response import StandardResponse, success
+from app.schema.user_role import UserRoleCreate, UserRoleOut, UserRoleUpdate
+from app.service.user_role import UserRolesService
 
 router = APIRouter()
 

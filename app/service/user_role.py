@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.user_role import UserRolesRepo
-from schema.user_role import UserRoleCreate, UserRoleUpdate
+from app.repo.user_role import UserRolesRepo
+from app.schema.user_role import UserRoleCreate, UserRoleUpdate
 
 
 class UserRolesService:

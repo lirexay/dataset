@@ -2,7 +2,7 @@ from http import HTTPStatus
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from schema.response import StandardResponse
+from app.schema.response import StandardResponse
 
 
 def register_error_handlers(app):

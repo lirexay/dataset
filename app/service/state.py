@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.state import StatesRepo
-from schema.state import StateCreate, StateUpdate
+from app.repo.state import StatesRepo
+from app.schema.state import StateCreate, StateUpdate
 
 
 class StatesService:
