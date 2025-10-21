@@ -7,6 +7,12 @@ from alembic import context
 
 from app.db.base import Base
 from app.entities.item import Item
+from app.entities.user_role import UserRole
+from app.entities.dataset import Dataset
+from app.entities.file import File
+from app.entities.request import Request
+from app.entities.sell_request import SellRequest
+from app.entities.state import State
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

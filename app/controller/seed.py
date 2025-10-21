@@ -2,13 +2,13 @@
 import asyncio
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from db.session import get_db
-from service.seed import SeedService
-from core.config import settings
-from schema.response import StandardResponse, success
+from app.db.session import get_db
+from app.service.seed import SeedService
+from app.core.config import settings
+from app.schema.response import StandardResponse, success
 
-from db.base import Base
-from db.session import engine
+from app.db.base import Base
+from app.db.session import engine
 router = APIRouter()
 
 

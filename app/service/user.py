@@ -1,11 +1,11 @@
 from fastapi_pagination import Params
 from jose import JWTError, jwt
 from sqlalchemy.ext.asyncio import AsyncSession
-from core.config import settings
-from entities.user import User
-from repo.user import UsersRepo
-from schema.user import UserCreate, UserUpdate
-from core.auth import (
+from app.core.config import settings
+from app.entities.user import User
+from app.repo.user import UsersRepo
+from app.schema.user import UserCreate, UserUpdate
+from app.core.auth import (
     create_access_token,
     create_password_reset_token,
     get_current_user,

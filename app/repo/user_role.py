@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.user_role import UserRoleCreate, UserRoleUpdate
-from entities.user_role import UserRole
+from app.schema.user_role import UserRoleCreate, UserRoleUpdate
+from app.entities.user_role import UserRole
 
 
 class UserRolesRepo:

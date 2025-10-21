@@ -1,13 +1,21 @@
-.PHONY: run up tests lint migrate
+.PHONY: run up tests lint migrate create_db db
+
+ALEMBIC_INI=alembic.ini
+CREATE_DB_SCRIPT=create_db.py
+
+create_db:
+	python3 $(CREATE_DB_SCRIPT)
+
+migrate:
+	alembic -c $(ALEMBIC_INI) upgrade head
+
+db: create_db migrate
 
 run:
 	uvicorn app.main:app --reload
 
 up:
 	docker-compose up --build
-
-migrate:
-	alembic upgrade head
 
 tests:
 	pytest

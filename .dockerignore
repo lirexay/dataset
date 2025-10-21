@@ -1,0 +1,14 @@
+.git
+.pdm-python
+pycache
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+dist
+build
+.pdm.toml
+.DS_Store
+tests
+.env
+.venv

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean
-from db.base import Base
+from app.db.base import Base
 
 
 class Item(Base):

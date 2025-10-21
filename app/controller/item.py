@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params, paginate
 
-from api.deps import get_items_service
-from schema.response import StandardResponse, success
+from app.api.deps import get_items_service
+from app.schema.response import StandardResponse, success
 
-from schema.item import ItemCreate, ItemOut, ItemUpdate
-from service.item import ItemsService
+from app.schema.item import ItemCreate, ItemOut, ItemUpdate
+from app.service.item import ItemsService
 
 router = APIRouter()
 

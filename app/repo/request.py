@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.request import RequestCreate, RequestUpdate
-from entities.request import Request
+from app.schema.request import RequestCreate, RequestUpdate
+from app.entities.request import Request
 
 
 class RequestsRepo:

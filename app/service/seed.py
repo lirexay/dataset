@@ -1,12 +1,12 @@
 # service/seed.py
 from sqlalchemy.ext.asyncio import AsyncSession
-from entities.user_role import UserRole
-from entities.user import User
-from entities.state import State
-from entities.file import File
-from entities.dataset import Dataset
-from entities.request import Request
-from entities.sell_request import SellRequest
+from app.entities.user_role import UserRole
+from app.entities.user import User
+from app.entities.state import State
+from app.entities.file import File
+from app.entities.dataset import Dataset
+from app.entities.request import Request
+from app.entities.sell_request import SellRequest
 from sqlalchemy import text
 # data/seed_data.py
 

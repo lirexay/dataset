@@ -7,11 +7,11 @@ from jose import JWTError, jwt
 
 from sqlalchemy.ext.asyncio import AsyncSession
 # from api import deps
-from db.session import get_db
+from app.db.session import get_db
 
-from core.config import settings
-from entities.user import User
-from service.auth import AuthService
+from app.core.config import settings
+from app.entities.user import User
+from app.service.auth import AuthService
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
