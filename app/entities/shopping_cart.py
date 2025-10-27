@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, DateTime, Boolean
 from sqlalchemy.sql import func
-from db.base import Base
+from app.db.base import Base
+
 
 class ShoppingCart(Base):
     __tablename__ = "shopping_carts"

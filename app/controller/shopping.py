@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params
-from schema.response import StandardResponse, success
-from schema.shopping import CartItemCreate, ShoppingCartOut, OrderCreate, OrderOut
-from service.shopping import ShoppingService
-from api.deps import get_shopping_service
-from entities.user import User
-from core.auth import get_current_user  # your existing auth
+from app.schema.response import StandardResponse, success
+from app.schema.shopping import CartItemCreate, ShoppingCartOut, OrderCreate, OrderOut
+from app.service.shopping import ShoppingService
+from app.api.deps import get_shopping_service
+from app.entities.user import User
+from app.core.auth import get_current_user  # your existing auth
 
 router = APIRouter(prefix="/shopping", tags=["Shopping"])
 

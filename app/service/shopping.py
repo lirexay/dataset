@@ -1,8 +1,8 @@
 from decimal import Decimal
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.shopping import ShoppingRepo
-from schema.shopping import CartItemCreate, OrderCreate
+from app.repo.shopping import ShoppingRepo
+from app.schema.shopping import CartItemCreate, OrderCreate
 
 
 class ShoppingService:

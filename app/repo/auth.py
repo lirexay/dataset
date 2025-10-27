@@ -10,9 +10,8 @@ class AuthRepo:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def get(self, username: str, password: str) -> Optional[User]:
-        q = await self.db.execute(select(User).where(
-            (User.username == username) & (User.password == password)))
+    async def get(self, username: str,) -> Optional[User]:
+        q = await self.db.execute(select(User).where(User.username == username))
         return q.scalars().first()
 
     async def get_by_username(self, username: str) -> Optional[User]:

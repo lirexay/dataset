@@ -12,6 +12,7 @@ from app.core.auth import (
     create_access_token,
     get_current_user,
     get_password_hash,
+    verify_hash,
     verify_password,
 )
 from app.core.config import settings
@@ -105,9 +106,9 @@ async def confirm_password_reset(
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
                                  service: AuthService = Depends(get_auth_service),):
 
-    user = await service.get_user(username=form_data.username,
-                                  password=get_password_hash(form_data.password))
-
+    user = await service.get_user(username=form_data.username,)
+    print(user.password)
+    print(form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -115,7 +116,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if not verify_password(user.password, form_data.password):
+    if not verify_hash(str(user.password), str(form_data.password)):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",

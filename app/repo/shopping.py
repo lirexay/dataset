@@ -1,12 +1,12 @@
 from typing import Optional, List
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
-from entities.shopping_cart import ShoppingCart
-from entities.cart_item import CartItem
-from entities.order import Order
-from entities.order_item import OrderItem
-from entities.dataset import Dataset
-from schema.shopping import CartItemCreate
+from app.entities.shopping_cart import ShoppingCart
+from app.entities.cart_item import CartItem
+from app.entities.order import Order
+from app.entities.order_item import OrderItem
+from app.entities.dataset import Dataset
+from app.schema.shopping import CartItemCreate
 
 
 class ShoppingRepo:

@@ -8,6 +8,8 @@ from app.entities.dataset import Dataset
 from app.entities.request import Request
 from app.entities.sell_request import SellRequest
 from sqlalchemy import text
+
+from app.core.auth import get_password_hash
 # data/seed_data.py
 
 PERSIAN_USER_ROLES = [
@@ -148,11 +150,12 @@ class SeedService:
         file_map = {f.name: f for f in files}
 
         # === 6. Seed Users (using real role objects) ===
+        print(get_password_hash("admin"))
         user_data = [
             {"user_role": role_map["مدیر سیستم"], "fname": "علی", "lname": "رضایی",
-                "username": "admin", "password": "admin", "phone": "09123456789"},
+                "username": "admin", "password": get_password_hash("admin"), "phone": "09123456789"},
             {"user_role": role_map["کارشناس فروش"], "fname": "سارا", "lname": "احمدی",
-                "username": "sara_sales", "password": "pass123", "phone": "09356789012"},
+                "username": "sara_sales", "password": get_password_hash("pass123"), "phone": "09356789012"},
         ]
         # Convert to User objects with real relationships
         users = []

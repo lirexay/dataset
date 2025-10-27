@@ -12,7 +12,7 @@ migrate:
 db: create_db migrate
 
 run:
-	pdm run uvicorn app.main:app --reload
+	pdm run uvicorn app.main:app
 
 up:
 	docker-compose up --build
