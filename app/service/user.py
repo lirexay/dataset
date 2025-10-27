@@ -53,15 +53,13 @@ class UsersService:
             raise ValueError("Username already taken")
 
         # Hash password
-        hashed_pw = get_password_hash(payload.password)
+        payload.password = get_password_hash(payload.password)
 
         # Create user
-        user_data = payload.model_dump(exclude={"password"})
-        user_data["password"] = hashed_pw
-        return await self.repo.create(user_data)
-
-    async def create_user(self, payload: UserCreate):
         return await self.repo.create(payload)
+
+    # async def create_user(self, payload: UserCreate):
+    #     return await self.repo.create(payload)
 
     async def get_user(self, user_id: int):
         return await self.repo.get(user_id)
