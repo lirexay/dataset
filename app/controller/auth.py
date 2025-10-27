@@ -7,20 +7,19 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.exc import IntegrityError
 from pydantic import BaseModel
 
-from api.deps import get_auth_service, get_users_service
-from core.auth import (
+from app.api.deps import get_auth_service, get_users_service
+from app.core.auth import (
     create_access_token,
     get_current_user,
     get_password_hash,
     verify_password,
 )
-from core.config import settings
-import schema
-from schema.auth import PasswordResetConfirm, PasswordResetRequest, Token, UserCreate, UserInfoResponse, UserOut
-from schema.response import StandardResponse, success
-from service.auth import AuthService
-from service.user import UsersService
-from utils.email import send_reset_password_email
+from app.core.config import settings
+from app.schema.auth import PasswordResetConfirm, PasswordResetRequest, Token, UserCreate, UserInfoResponse, UserOut
+from app.schema.response import StandardResponse, success
+from app.service.auth import AuthService
+from app.service.user import UsersService
+from app.utils.email import send_reset_password_email
 
 router = APIRouter()
 

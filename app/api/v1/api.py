@@ -1,16 +1,16 @@
 from fastapi import APIRouter
-from core.config import settings
-from controller.item import router as item_router
-from controller.dataset import router as dataset_router
-from controller.file import router as file_router
-from controller.request import router as request_router
-from controller.sell_request import router as sell_request_router
-from controller.user import router as user_router
-from controller.user_role import router as user_role_router
-from controller.state import router as state_router
-from controller.auth import router as auth_router
-from controller.seed import router as seed_router
-from controller.shopping import router as shopping_router
+from app.core.config import settings
+from app.controller.item import router as item_router
+from app.controller.dataset import router as dataset_router
+from app.controller.file import router as file_router
+from app.controller.request import router as request_router
+from app.controller.sell_request import router as sell_request_router
+from app.controller.user import router as user_router
+from app.controller.user_role import router as user_role_router
+from app.controller.state import router as state_router
+from app.controller.auth import router as auth_router
+from app.controller.seed import router as seed_router
+
 
 router = APIRouter()
 

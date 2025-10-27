@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.file import FilesRepo
-from schema.file import FileCreate, FileUpdate
+from app.repo.file import FilesRepo
+from app.schema.file import FileCreate, FileUpdate
 
 
 class FilesService:

@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.user import UserCreate, UserUpdate
-from entities.user import User
+from app.schema.user import UserCreate, UserUpdate
+from app.entities.user import User
 from sqlalchemy import update
 
 

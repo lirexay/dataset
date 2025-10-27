@@ -2,22 +2,24 @@ services:
   db:
     image: postgres:15
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: online_shop_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data # Add volume for data persistence
+    healthcheck: # <-- NEW
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
 
   web:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgresql+asyncpg://postgres:password@db:5432/online_shop_db
-      SECRET_KEY: change-me-in-prod
+      DATABASE_URL: postgresql+asyncpg://postgres:password@db:5432/dataset
+      SECRET_KEY: F6PoOg1LnGIPOvpiuwwITeFVPrjRBp7UldDkr1qQREI=
     ports:
       - "8000:8000" # Fixed port mapping
 # Optional: for development with hot reload

@@ -1,8 +1,8 @@
 
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.request import RequestsRepo
-from schema.request import RequestCreate, RequestUpdate
+from app.repo.request import RequestsRepo
+from app.schema.request import RequestCreate, RequestUpdate
 
 
 class RequestsService:

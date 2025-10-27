@@ -1,7 +1,7 @@
 from fastapi_pagination import Params
 from sqlalchemy.ext.asyncio import AsyncSession
-from repo.auth import AuthRepo
-from schema.auth import UserCreate
+from app.repo.auth import AuthRepo
+from app.schema.auth import UserCreate
 
 
 class AuthService:

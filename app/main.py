@@ -6,48 +6,32 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
 from contextlib import asynccontextmanager
 
-from api.v1.api import router as api_v1_router
-from core.config import settings
-from core.logging import configure_logging
-from utils.error import register_error_handlers
+from app.api.v1.api import router as api_v1_router
+from app.core.config import settings
+from app.core.logging import configure_logging
+from app.utils.error import register_error_handlers
 
 # 👇 Import ALL entity models so Base.metadata includes them
-from entities.user_role import UserRole
-from entities.user import User
-from entities.file import File
-from entities.dataset import Dataset
-from entities.state import State
-from entities.request import Request
-from entities.sell_request import SellRequest
-from entities.item import Item
+from app.entities.user_role import UserRole
+from app.entities.user import User
+from app.entities.file import File
+from app.entities.dataset import Dataset
+from app.entities.state import State
+from app.entities.request import Request
+from app.entities.sell_request import SellRequest
+from app.entities.item import Item
 
 # Database setup
-from db.base import Base
-from db.session import engine
+from app.db.base import Base
+from app.db.session import engine
 
 
 configure_logging()
-
-
-async def create_tables():
-    """Create all tables defined in Base.metadata."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup: create tables
-    await create_tables()
-    yield
-    # Shutdown: nothing to do here for now
-
 
 def create_app() -> FastAPI:
     app = FastAPI(
         title=settings.PROJECT_NAME,
         version=settings.VERSION,
-        lifespan=lifespan  # ← Use lifespan to manage startup/shutdown
     )
     add_pagination(app)
 

@@ -3,8 +3,8 @@ from fastapi_pagination import Page, Params
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_pagination.ext.sqlalchemy import paginate
-from schema.state import StateCreate, StateUpdate
-from entities.state import State
+from app.schema.state import StateCreate, StateUpdate
+from app.entities.state import State
 
 
 class StatesRepo:

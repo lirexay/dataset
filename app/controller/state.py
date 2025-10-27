@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination import Page, Params
-from api.deps import get_states_service
-from schema.response import StandardResponse, success
-from schema.state import StateCreate, StateOut, StateUpdate
-from service.state import StatesService
+from app.api.deps import get_states_service
+from app.schema.response import StandardResponse, success
+from app.schema.state import StateCreate, StateOut, StateUpdate
+from app.service.state import StatesService
 
 router = APIRouter()
 
