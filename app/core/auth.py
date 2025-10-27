@@ -25,7 +25,12 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def verify_hash(hashed_password, plain_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    print(plain_password)
+    print(hashed_password)
+
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    return pwd_context.verify(secret=plain_password, hash=hashed_password)
+    # return pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
