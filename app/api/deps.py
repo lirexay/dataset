@@ -13,6 +13,13 @@ from service.state import StatesService
 from service.request import RequestsService
 from service.sell_request import SellRequestsService
 from service.item import ItemsService
+from service.shopping import ShoppingService
+
+
+async def get_shopping_service(
+    db: AsyncSession = Depends(get_db),
+) -> AsyncGenerator[ShoppingService, None]:
+    yield ShoppingService(db)
 
 
 async def get_items_service(
