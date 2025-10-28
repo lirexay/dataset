@@ -29,7 +29,8 @@ class DatasetsRepo:
                 f"%{filters.description}%"))
         if filters.file_id is not None:
             conditions.append(Dataset.file_id == filters.file_id)
-
+        if filters.category_id is not None:
+            conditions.append(Dataset.category_id == filters.category_id)
         if conditions:
             query = query.where(and_(*conditions))
 

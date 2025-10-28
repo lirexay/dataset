@@ -10,6 +10,7 @@ from app.controller.user_role import router as user_role_router
 from app.controller.state import router as state_router
 from app.controller.auth import router as auth_router
 from app.controller.seed import router as seed_router
+from app.controller.dataset_category import router as dataset_category_router
 
 
 router = APIRouter()
@@ -17,9 +18,11 @@ router = APIRouter()
 
 if settings.SEED_ENABLED:
     pass
+
 router.include_router(seed_router, prefix="/dev", tags=["Development"])
 router.include_router(state_router, prefix="/state", tags=["state"])
 router.include_router(dataset_router, prefix="/dataset", tags=["dataset"])
+router.include_router(dataset_category_router)
 router.include_router(file_router, prefix="/file", tags=["file"])
 router.include_router(request_router, prefix="/request", tags=["request"])
 router.include_router(user_router, prefix="/user", tags=["user"])

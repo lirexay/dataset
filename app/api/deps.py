@@ -17,11 +17,17 @@ from app.service.file import FilesService
 from app.service.user import UsersService
 from app.service.user_role import UserRolesService
 from app.service.auth import AuthService
+from app.service.dataset_category import DatasetCategoriesService
 from typing import AsyncGenerator
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.db.session import get_db
+
+
+async def get_dataset_categories_service(
+    db: AsyncSession = Depends(get_db),
+) -> AsyncGenerator[DatasetCategoriesService, None]:
+    yield DatasetCategoriesService(db)
 
 
 async def get_shopping_service(

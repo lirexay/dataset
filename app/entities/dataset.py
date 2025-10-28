@@ -8,3 +8,4 @@ class Dataset(Base):
     name = Column(String(999))
     description = Column(String(999))
     file_id = Column(Integer, ForeignKey("files.id"))
+    category_id = Column(Integer, ForeignKey("dataset_categories.id"))  # ← new
